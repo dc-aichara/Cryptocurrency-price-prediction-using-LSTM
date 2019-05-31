@@ -1,13 +1,19 @@
 This script can be used to predict price of cryptocurrency which is listed on CoinMarketCap. 
 
 ## Example 
-I have tested this script for Bitcoin, and Litecoin. 
+I have tested this script for Bitcoin, Etherreum, and Litecoin. 
 ```
 $ python price_predict.py bitcoin 20130428 20190530
 
 ```
 
 ![](results/lstm_price_bitcoin.png)
+
+``` 
+$ python price_predict.py ethereum 20130428 20190530
+
+```
+![](results/lstm_price_ethereum.png)
 
 ```
 $ python price_predict.py litecoin 20130428 20190530

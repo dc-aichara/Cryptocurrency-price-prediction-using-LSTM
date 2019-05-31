@@ -3,23 +3,22 @@ from PriceIndices import price
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, LSTM
 import tensorflow as tf
 
 config = tf.ConfigProto(intra_op_parallelism_threads=0,
                         inter_op_parallelism_threads=0,
                         allow_soft_placement=True)
-
 session = tf.Session(config=config)
+from sklearn.preprocessing import MinMaxScaler
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, LSTM
 
 price = price()
 
 
 def price_predict(coin, start_date, end_date):
 
-    print('Price data of {0} will be extracted from {1} to {2}.'format(coin, start_date, end_date))
+    print('PYour inputs are {0}, {1}, and {2}'.format(coin, start_date, end_date))
     df = price.get_price(str(coin), str(start_date), str(end_date))
 
     df['date'] = pd.to_datetime(df['date'])
