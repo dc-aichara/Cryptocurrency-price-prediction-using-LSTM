@@ -19,7 +19,7 @@ price = price()
 
 def price_predict(coin, start_date, end_date):
 
-    print(coin, start_date, end_date)
+    print('Price data of {0} will be extracted from {1} to {2}.'format(coin, start_date, end_date))
     df = price.get_price(str(coin), str(start_date), str(end_date))
 
     df['date'] = pd.to_datetime(df['date'])
@@ -28,6 +28,8 @@ def price_predict(coin, start_date, end_date):
 
     df = df.set_index(df['date'])[['price']]
 
+    print('Price data of {} days have been extracted.')
+
     dataset = df.values
 
     length = round(len(df)*0.80)
@@ -35,7 +37,7 @@ def price_predict(coin, start_date, end_date):
     train = dataset[0:length, :]
     valid = dataset[length:, :]
 
-    # converting dataset into x_train and y_train
+    # Converting dataset into x_train and y_train
 
     scaler = MinMaxScaler(feature_range=(0, 1))
     scaled_data = scaler.fit_transform(dataset)
@@ -48,7 +50,7 @@ def price_predict(coin, start_date, end_date):
 
     x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1], 1))
 
-    # create and fit the LSTM network
+    # Create and fit the LSTM network
     model = Sequential()
     model.add(LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1],1)))
     model.add(LSTM(units=50))
@@ -57,25 +59,26 @@ def price_predict(coin, start_date, end_date):
     model.compile(loss='mean_squared_error', optimizer='adam')
     model.fit(x_train, y_train, epochs=5, batch_size=1, verbose=2)
 
-    # predicting length -len(df) values, using past 60 from the train data
+    # predicting len(df)-length values, using past 60 from the train data
     inputs = df[len(df) - len(valid) - 60:].values
     inputs = inputs.reshape(-1,1)
     inputs  = scaler.transform(inputs)
 
     X_test = []
     for i in range(60,inputs.shape[0]):
-        X_test.append(inputs[i-60:i,0]) # length -len(df) batches with each 60 values
+        X_test.append(inputs[i-60:i,0]) # len(df)-length batches with each 60 values
     X_test = np.array(X_test)
 
     X_test = np.reshape(X_test, (X_test.shape[0],X_test.shape[1],1))
     pred_price = model.predict(X_test)
     pred_price = scaler.inverse_transform(pred_price)
 
-    rms=np.sqrt(np.mean(np.power((valid-pred_price),2)))
+    # Root Mean Square
+    rms = np.sqrt(np.mean(np.power((valid-pred_price),2)))
 
     print(rms)
 
-    # for plotting
+    # Let's plot results and actual price data
 
     fig, ax = plt.subplots(figsize =(16, 12))
     train = df[:length]
