@@ -28,7 +28,7 @@ def price_predict(coin, start_date, end_date):
 
     df = df.set_index(df['date'])[['price']]
 
-    print('Price data of {} days have been extracted.')
+    print('Price data of {0} days have been extracted.'.format(len(df)))
 
     dataset = df.values
 
@@ -93,7 +93,7 @@ def price_predict(coin, start_date, end_date):
     plt.grid()
     fig.set_facecolor('orange')
     plt.legend(fontsize =24)
-    plt.savefig('results/lstm_price_{}.png'.format(str(coin)), bbox_inches ='tight', facecolor ='orange')
+    plt.savefig('results/lstm_price_{0}.png'.format(str(coin)), bbox_inches ='tight', facecolor ='orange')
     plt.show()
 
 
