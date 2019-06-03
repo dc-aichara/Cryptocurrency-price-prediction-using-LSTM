@@ -3,6 +3,7 @@ from PriceIndices import price
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
 import tensorflow as tf
 
 config = tf.ConfigProto(intra_op_parallelism_threads=0,
@@ -93,6 +94,8 @@ def price_predict(coin, start_date, end_date):
     plt.legend(fontsize =24)
     plt.savefig('results/lstm_price_{0}.png'.format(str(coin)), bbox_inches ='tight', facecolor ='orange')
     plt.show()
+# Save model
+    pickle.dump(model, open('lstm.pkl', 'wb'))
 
 
 if __name__ == '__main__':
