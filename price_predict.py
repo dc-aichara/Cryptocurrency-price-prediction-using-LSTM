@@ -52,7 +52,6 @@ def price_predict(coin, start_date, end_date):
     # Create and fit the LSTM network
     model = Sequential()
     model.add(LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1],1)))
-    model.add(LSTM(units=50))
     model.add(Dense(1))
 
     model.compile(loss='mean_squared_error', optimizer='adam')
