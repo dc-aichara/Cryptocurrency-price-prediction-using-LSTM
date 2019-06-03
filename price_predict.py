@@ -18,7 +18,7 @@ price = price()
 
 def price_predict(coin, start_date, end_date):
 
-    print('PYour inputs are {0}, {1}, and {2}'.format(coin, start_date, end_date))
+    print('Your inputs are {0}, {1}, and {2}'.format(coin, start_date, end_date))
     df = price.get_price(str(coin), str(start_date), str(end_date))
 
     df['date'] = pd.to_datetime(df['date'])
