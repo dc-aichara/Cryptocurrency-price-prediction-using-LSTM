@@ -21,3 +21,6 @@ $ python price_predict.py litecoin 20130428 20190530
 ```
 
 ![](results/lstm_price_litecoin.png)
+
+
+Reference: [Analytics Vidhya](https://www.analyticsvidhya.com/blog/2018/10/predicting-stock-price-machine-learningnd-deep-learning-techniques-python/) 
