@@ -1,5 +1,5 @@
 import sys
-from PriceIndices import price
+from PriceIndices import MarketHistory
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,7 +14,7 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM
 
-price = price()
+price = MarketHistory()
 
 
 def price_predict(coin, start_date, end_date):
